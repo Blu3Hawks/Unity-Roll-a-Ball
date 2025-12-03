@@ -1656,6 +1656,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4805815929505099359}
   m_PrefabAsset: {fileID: 0}
+--- !u!54 &1231194762 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 6907366365043332869, guid: 613e41938e114e2478b600d481f3f20c,
+    type: 3}
+  m_PrefabInstance: {fileID: 4805815929505099359}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1278576806
 GameObject:
   m_ObjectHideFlags: 0
@@ -2470,7 +2476,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3361618293715119977, guid: 613e41938e114e2478b600d481f3f20c,
         type: 3}
+      propertyPath: _rb
+      value: 
+      objectReference: {fileID: 1231194762}
+    - target: {fileID: 3361618293715119977, guid: 613e41938e114e2478b600d481f3f20c,
+        type: 3}
+      propertyPath: _speed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3361618293715119977, guid: 613e41938e114e2478b600d481f3f20c,
+        type: 3}
       propertyPath: countText
+      value: 
+      objectReference: {fileID: 425199201}
+    - target: {fileID: 3361618293715119977, guid: 613e41938e114e2478b600d481f3f20c,
+        type: 3}
+      propertyPath: _countText
       value: 
       objectReference: {fileID: 425199201}
     - target: {fileID: 3361618293715119977, guid: 613e41938e114e2478b600d481f3f20c,
@@ -2478,6 +2499,16 @@ PrefabInstance:
       propertyPath: winTextObject
       value: 
       objectReference: {fileID: 930430837}
+    - target: {fileID: 3361618293715119977, guid: 613e41938e114e2478b600d481f3f20c,
+        type: 3}
+      propertyPath: _winTextObject
+      value: 
+      objectReference: {fileID: 930430837}
+    - target: {fileID: 3361618293715119977, guid: 613e41938e114e2478b600d481f3f20c,
+        type: 3}
+      propertyPath: _groundMask.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 5659232202912756685, guid: 613e41938e114e2478b600d481f3f20c,
         type: 3}
       propertyPath: m_Name

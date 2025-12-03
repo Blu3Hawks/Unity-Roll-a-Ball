@@ -7,18 +7,19 @@ using TMPro;
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement Settings")]
-    [SerializeField] private LayerMask groundMask;
-    [SerializeField] private float speed = 0;
+    [SerializeField] private LayerMask _groundMask;
+    [SerializeField] private float _speed = 0;
 
     [Header("References")]
-    [SerializeField] private Rigidbody rb;
-    public TextMeshProUGUI countText; // ref to UI text component
-    public GameObject winTextObject;
+    [SerializeField] private Rigidbody _rb;
+    public TextMeshProUGUI _countText; // ref to UI text component
+    public GameObject _winTextObject;
 
     //private variables
-    private float movementX;
-    private float movementY;
-    private int count;
+    private float _movementX;
+    private float _movementY;
+    private int _count;
+    private bool _isMovingWithMouse = false;
 
     // Start is called before the first frame update
     // check every frame for player input
@@ -26,19 +27,22 @@ public class PlayerController : MonoBehaviour
     // fixed update <= called just before physics calculations
     private void Start()
     {
-        Input.gyro.enabled = true;//for our bonus - make the gyro enabled
-        count = 0; //sets initial count to zero
+        _count = 0; //sets initial count to zero
         SetCountText();
 
-        winTextObject.SetActive(false);
+        _winTextObject.SetActive(false);
     }
 
     private void FixedUpdate()
     {
         MouseMovement();
+        KeyboardMovement();
+    }
 
-        Vector3 movement = new Vector3(movementX, 0.0f, movementY);
-        rb.AddForce(movement * speed);
+    private void KeyboardMovement()
+    {
+        Vector3 movement = new Vector3(_movementX, 0.0f, _movementY);
+        _rb.AddForce(movement * _speed);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -48,7 +52,7 @@ public class PlayerController : MonoBehaviour
             //if the game object has a pickup tag, set active status to false
             other.gameObject.SetActive(false);
             //every time "coin" gets picked up add 1 to the count
-            count += 1;
+            _count += 1;
             SetCountText();
         }
     }
@@ -58,20 +62,22 @@ public class PlayerController : MonoBehaviour
         //getting input value from player
         // gets vector 2 data from movement value and stores it into the vector2 variable = movementVector
         Vector2 movementVector = movementVal.Get<Vector2>();
-        movementX = movementVector.x;
-        movementY = movementVector.y;
+        _movementX = movementVector.x;
+        _movementY = movementVector.y;
     }
 
     private void MouseMovement()
     {
+
         //check if we have any mouse inputs
         if (Input.GetMouseButton(0))
         {
+            _isMovingWithMouse = true;
             //if we do then we create a raycast from our screen to the world
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             //if the ray hits something on the ground layer
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundMask))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, _groundMask))
             {
                 //we can store the position of the hit point, and calculate the direction from the player to that point
                 Vector3 targetPosition = hit.point;
@@ -79,24 +85,31 @@ public class PlayerController : MonoBehaviour
                 direction.y = 0f;
                 direction.Normalize();
                 //and now set our movement vectors to that direction
-                movementX = direction.x;
-                movementY = direction.z;
+                _movementX = direction.x;
+                _movementY = direction.z;
             }
         }
         //otherwise we set movement to zero
         else
         {
+            if (_isMovingWithMouse)
+            {
+                _movementX = 0f;
+                _movementY = 0f;
+                _rb.linearVelocity = Vector3.zero;
+                _isMovingWithMouse = false;
+            }
             return;
         }
     }
 
-   
+
     private void SetCountText()
     {
-        countText.text = "Count: " + count.ToString();
-        if (count >= 12)
+        _countText.text = "Count: " + _count.ToString();
+        if (_count >= 12)
         {
-            winTextObject.SetActive(true);
+            _winTextObject.SetActive(true);
         }
     }
 }
