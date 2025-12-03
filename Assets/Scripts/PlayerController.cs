@@ -36,7 +36,6 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         MouseMovement();
-        GyroscopeMovement();
 
         Vector3 movement = new Vector3(movementX, 0.0f, movementY);
         rb.AddForce(movement * speed);
@@ -94,19 +93,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void GyroscopeMovement()
-    {
-        Debug.Log(Input.gyro.attitude);
-        Vector3 tilt = Input.gyro.gravity;
-        if (tilt.magnitude == 0f) { return; }
-
-        float movementX = tilt.x;
-        float movementY = tilt.y;
-
-        Vector3 movement = new Vector3(movementX, 0.0f, movementY);
-        rb.AddForce(movement * speed);
-    }
-
+   
     private void SetCountText()
     {
         countText.text = "Count: " + count.ToString();
