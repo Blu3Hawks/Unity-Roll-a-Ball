@@ -86,9 +86,6 @@ public class PlayerController : MonoBehaviour
         //otherwise we set movement to zero
         else
         {
-            movementX = 0;
-            movementY = 0;
-            rb.angularVelocity = Vector3.zero;
             return;
         }
     }
