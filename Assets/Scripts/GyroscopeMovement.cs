@@ -1,17 +1,17 @@
 using UnityEngine;
 
-#if UNITY_ANDROID || UNITY_IOS
 public class GyroscopeMovement : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Rigidbody _rb;
     [SerializeField] private float _speed = 10;
     [SerializeField] private float _threshhold = 0.2f;
-    v
+    
     private Gyroscope _gyro;
     private bool _gyroEnabled;
     private Vector3 _tiltDir;
 
+#if UNITY_ANDROID || UNITY_IOS
     private void Start()
     {
         _tiltDir = Vector3.zero;
@@ -70,5 +70,6 @@ public class GyroscopeMovement : MonoBehaviour
         }
         return false;
     }
-}
+    
 #endif
+}
